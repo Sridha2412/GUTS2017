@@ -2,6 +2,6 @@
 
 Team Please Hold Me, I'm Scared
 
-Iabi, Sridha, Dom, Rafa, and Jan-Hendrik
+Ibai, Sridha, Dom, Rafa, and Jan-Hendrik
 
 Challenge: Assymetrical Game, Men in Hacks

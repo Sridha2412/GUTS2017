@@ -95,48 +95,48 @@ class Creepers(pygame.sprite.Sprite):
     def __init__(self, screen, speed, damage, hp, attack_speed, value, image, zombie_type, player_pos):
         pygame.sprite.Sprite.__init__(self)
 
-    #Assign screen to a variable
-    self.__screen = screen
+        #Assign screen to a variable
+        self.__screen = screen
 
-    #Assign speed to a variable
-    self.__speed = speed
-    self.__default_speed = speed
+        #Assign speed to a variable
+        self.__speed = speed
+        self.__default_speed = speed
 
-    #Assign the bullet damage to a variable
-    self.__damage = damage
+        #Assign the bullet damage to a variable
+        self.__damage = damage
 
-    #Assign attack speed to a variable
-    self.__attack_speed = attack_speed
+        #Assign attack speed to a variable
+        self.__attack_speed = attack_speed
 
-    #Assign value to a variable
-    self.__value = value
+        #Assign value to a variable
+        self.__value = value
 
-    #Assign wave type to a variable
-    self.__zombie_type = zombie_type
+        #Assign wave type to a variable
+        self.__zombie_type = zombie_type
 
-    #set variable for move
-    self.__move = True
+        #set variable for move
+        self.__move = True
 
-    #set counter for zombie attack speed
-    self.__count = (attack_speed-1)
+        #set counter for zombie attack speed
+        self.__count = (attack_speed-1)
 
-    #set variables for slow
-    self.__slow = False
-    self.__slow_counter = 0
+        #set variables for slow
+        self.__slow = False
+        self.__slow_counter = 0
 
-    self.image = image
-    self.image.convert_alpha()
-    self.__saved_image = self.image
-    self.rect = self.image.get_rect()
+        self.image = image
+        self.image.convert_alpha()
+        self.__saved_image = self.image
+        self.rect = self.image.get_rect()
 
-    #Assigning initial zombie spawn point
-    self.spawn()
+        #Assigning initial zombie spawn point
+        self.spawn()
 
-    #Rotate the zombie towards player
-    self.rotate(player_pos)
+        #Rotate the zombie towards player
+        self.rotate(player_pos)
 
-    #calculate distance and step amount
-    self.set_step_amount(player_pos)
+        #calculate distance and step amount
+        self.set_step_amount(player_pos)
 
     def reset_attack(self):
         #Resets acount counter
@@ -196,22 +196,22 @@ class Creepers(pygame.sprite.Sprite):
 
     def spawn(self):
         #randomly spawns zombie from left, rigt or bottom
-        self.__spawn = random.randInt(1,3)
+        self.__spawn = random.randint(1,3)
 
         #Spawning on Left
         if self.__spawn == 1:
             self.__x = random.randrange(0, -300, -30)
-            self.__y = random.randint(0. self.__screen.get_height()-100)
+            self.__y = random.randint(0, self.__screen.get_height()-100)
 
         #Spawning on right
-        else self.__spawn == 2:
-            self.__x = random.randInt(self.__screen.get_width(), self.__screen.get_width()+300)
+        elif self.__spawn == 2:
+            self.__x = random.randint(self.__screen.get_width(), self.__screen.get_width()+300)
             self.__y=random.randint(0,self.__screen.get_height()-100)
 
         #Spawning on bottom
-        else self.__spawn == 3:
-            self.__x = random.randInt(0, self.__screen.get_width())
-            self.__y = random.randInt(self.__screen.get_height(), self.__screen_height()+300)
+        elif self.__spawn == 3:
+            self.__x = random.randint(0, self.__screen.get_width())
+            self.__y = random.randint(self.__screen.get_height(), self.__screen.get_height()+300)
 
         self.rect.center = (self.__x, self.__y)
 
@@ -232,7 +232,7 @@ class Creepers(pygame.sprite.Sprite):
         *** ESSENTIALLY the main method for the zombies"""
 
         if self.__move:
-            self.rect.centerx += self-__dx
+            self.rect.centerx += self.__dx
             self.rect.centery += self.__dy
 
         if self.__slow:

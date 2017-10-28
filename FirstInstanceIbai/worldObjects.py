@@ -25,8 +25,12 @@ class Player(pygame.sprite.Sprite):
 
 
         #Set the rect properties for our player
+        #Don't ask me why I chose these numbers because I don't have an answer
+        #They just work **magic**
         self.rect.left = 0
         self.rect.top = 200
+        self.rect.right = 700
+        self.rect.bottom = 500
         self.__speed = 4
 
         #Sets angle value aka: where the player is facing

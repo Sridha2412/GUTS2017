@@ -70,8 +70,6 @@ class App(object):
             # self.screen.fill(value) # Fill the screen with the new
             for idx, i in enumerate(self.color):
                 value[idx] = self.color[idx]
-                            # #print(value[0], value[1], value[2], value[3])
-            # print(self.color, str(value))
             pg.display.update() # Make updates to screen every frame.
             self.clock.tick(self.fps) # Restrict framerate of program.
 

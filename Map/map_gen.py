@@ -1,4 +1,4 @@
-import math
+import math, os
 from opensimplex import OpenSimplex
 
 gen = OpenSimplex()
@@ -32,5 +32,10 @@ def wanking_cunt(x_width, y_height, freq, octaves, power, features):
             z = noise(nx, ny, freq, octaves, power)
             terrain =  convert_to_terrain(z, features)
             total.append([(x, y), terrain])
-
+#    if not os.path.exists('map.dat'):
+        #f = open('map.dat', 'w')
+        #f.close()
+    #with open('map.dat', "rw") as map_:
+    #    for tile in total:
+    #        map_.write(tile)
     return total

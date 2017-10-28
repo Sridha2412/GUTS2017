@@ -3,7 +3,7 @@ import pygame, sys, map_gen, time
 pygame.init()
 reso_x = 2000
 reso_y = 1300
-divs = 4
+divs = reso_x/64
 
 screen = pygame.display.set_mode((reso_x, reso_y))
 
@@ -12,13 +12,18 @@ concrete = (37, 37, 37)
 grass = (34, 126, 15)
 sand = (176, 166, 76)
 
-type_ = {1:(101, 71, 31), 2:(37, 37, 37), 3:(34, 126, 15), 4:(176, 166, 76), None:(0,0,0)}
+type_ = {1:(101, 71, 31), 2:(37, 37, 37), 3:(34, 126, 15), 4:(176, 166, 76), 5:((255, 0, 221)), None:(0,0,0)}
 
 screen.fill((0,0,0))
 
-map_ = map_gen.wanking_cunt(reso_x/divs, reso_y/divs, 10, 0, 2, 4)
 
-print len(map_),
+frequency = 5
+octaves = 4
+power = 1.5
+number_of_different_tiles = 3 # the dictionary at the top must correspond to this and the colours too. im too tired to care so fuck off
+
+map_ = map_gen.wanking_cunt(reso_x/divs, reso_y/divs, frequency, octaves, power, number_of_different_tiles)
+print map_
 #while(True):
 while True:
 

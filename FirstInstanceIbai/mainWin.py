@@ -50,8 +50,8 @@ def main():
         for event in pygame.event.get():
 
             #on user close window, keepGoing sets to false and program quits
-            if event.type = pygame.QUIT:
-                keepGoing = false
+            if event.type == pygame.QUIT:
+                keepGoing = False
 
         #rotate character to face mouse
         player.rotate(pygame.mouse.get_pos())

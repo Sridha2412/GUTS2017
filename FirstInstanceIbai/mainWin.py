@@ -5,7 +5,7 @@ pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((1000, 620))
 
-SCREEN_SIZE = (1000, 800)
+SCREEN_SIZE = (1000, 1000)
 
 def main():
     #This function takes care of logic behind game
@@ -15,11 +15,17 @@ def main():
 
     #Entities
     #Creating background
-    background_colour = (92, 34, 34)
-    screen.fill(background_colour)
+    """background_colour = (92, 34, 34)
+    screen.fill(background_colour)"""
+
+    background = pygame.image.load('bg.jpg')
+    background=background.convert()
+    screen.blit(background, (0, 0))
 
     #Creating a player
     player = worldObjects.Player(screen)
+
+    allSprites = pygame.sprite.OrderedUpdates(player)
 
     # ACTION HAPPENING
 
@@ -35,7 +41,7 @@ def main():
         #when key Pressed
         keystate = pygame.key.get_pressed()
         if keystate[pygame.locals.K_w]:
-            player(screen)
+            player.go_up(screen)
 
         if keystate[pygame.locals.K_a]:
             player.go_left(screen)
@@ -50,15 +56,18 @@ def main():
         for event in pygame.event.get():
 
             #on user close window, keepGoing sets to false and program quits
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or keystate[pygame.locals.K_ESCAPE]:
                 keepGoing = False
 
         #rotate character to face mouse
-        player.rotate(pygame.mouse.get_pos())
+        #player.rotate(pygame.mouse.get_pos())
 
         # Refresh screen
         screen.blit(background,(0,0))
         allSprites.update()
+        allSprites.draw(screen)
+
+
 
         pygame.display.flip()
 

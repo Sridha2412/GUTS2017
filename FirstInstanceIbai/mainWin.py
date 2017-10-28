@@ -1,6 +1,6 @@
 #Main method goes here
 # I - Import and Initialize
-import pygame,pygame.locals,sprite_module,random,os
+import pygame,pygame.locals,random,os
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((1000, 620))

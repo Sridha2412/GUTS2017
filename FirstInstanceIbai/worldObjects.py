@@ -3,25 +3,34 @@ import pygame,math,os,random
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, screen):
-        pygame.mainWin.mainWin.__init__(self)
+        pygame.sprite.Sprite.__init__(self)
 
         #This retrieves all the possible looks of the character from system different
-        self._looksList = []
+        self.__list = []
         for file in os.listdir("playerImage/"):
-            self._looksList.append(pygae.image.load("./playerImage/" + file))
+            self.__list.append(pygame.image.load('./playerImage/' + file))
 
         #Set initial look to first element in _list
         """TODO: ask for gun input next"""
-        self.image = _looksList[0]
+        self.image = self.__list[0]
         self.image = self.image.convert_alpha()
         self.rect = self.image.get_rect()
 
         #set saved image
         self.__saved_image = self.image
 
+        #resize image
+        w,h = self.__saved_image.get_size()
+        self.image = pygame.transform.scale(self.__saved_image, (int(w*0.3), int(h*0.3)))
+
+
         #Set the rect properties for our player
+        #Don't ask me why I chose these numbers because I don't have an answer
+        #They just work **magic**
         self.rect.left = 0
         self.rect.top = 200
+        self.rect.right = 700
+        self.rect.bottom = 500
         self.__speed = 4
 
         #Sets angle value aka: where the player is facing
@@ -31,7 +40,10 @@ class Player(pygame.sprite.Sprite):
     #methods to make player move
     def go_right(self, screen):
         #go right if rect.right < screen width
-        if self.rect.right > screen.get_width():
+        print screen.get_width()
+        allowLimit = int(screen.get_width()+150)
+        print allowLimit
+        if self.rect.right > allowLimit:
             None
         else:
             self.rect.right += self.__speed
@@ -40,7 +52,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left < 0:
             None
         else:
-            self.rect.left += self.__speed
+            self.rect.left -= self.__speed
 
     def go_up(self,screen):
         if self.rect.top < 100:
@@ -49,17 +61,22 @@ class Player(pygame.sprite.Sprite):
             self.rect.top-=self.__speed
 
     def go_down(self,screen):
-        if self.rect.bottom > screen.get_height():
+
+        allowLimit = screen.get_height()+150
+        if self.rect.bottom > allowLimit:
             None
         else:
             self.rect.bottom+=self.__speed
 
+    #This stays disabled for player who cannot see
+    """TODO: add toggle so that this functions runs for player who can aim """
     def rotate(self,mouse_pos):
         self.__angle = math.degrees(math.atan2\
               (self.rect.centerx-mouse_pos[0], self.rect.centery-mouse_pos[1]))
 
+        #(self.__saved_image, self.__angle)
         self.image=pygame.transform.rotate\
-            (self.__saved_image, self.__angle)
+            (self.actualSize, self.__angle)
 
         self.rect = self.image.get_rect(center=self.rect.center)
 

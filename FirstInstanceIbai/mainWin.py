@@ -3,9 +3,11 @@
 import pygame,pygame.locals,worldObjects,random,os
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((1000, 620))
 
-SCREEN_SIZE = (1000, 1000)
+SCREEN_SIZE = (1080, 620)
+#screen = pygame.display.set_mode(SCREEN_SIZE)
+screen = pygame.display.set_mode((1080, 620))
+
 
 def main():
     #This function takes care of logic behind game
@@ -19,8 +21,15 @@ def main():
     screen.fill(background_colour)"""
 
     background = pygame.image.load('bg.jpg')
+    background = pygame.transform.scale(background, (1080, 620))
+
+    rect = background.get_rect()
+    rect = rect.move((1080, 620))
+    screen.blit(background, rect)
+
+    """background = pygame.image.load('bg.jpg')
     background=background.convert()
-    screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))"""
 
     #Creating a player
     player = worldObjects.Player(screen)
@@ -66,6 +75,7 @@ def main():
         screen.blit(background,(0,0))
         allSprites.update()
         allSprites.draw(screen)
+
 
 
 

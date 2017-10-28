@@ -21,22 +21,25 @@ class Player(pygame.sprite.Sprite):
 
         #resize image
         w,h = self.__saved_image.get_size()
-        #self.actualSize = pygame.transform.scale(self.__saved_image, (int(w*0.2), int(h*0.3)))
         self.image = pygame.transform.scale(self.__saved_image, (int(w*0.3), int(h*0.3)))
 
 
         #Set the rect properties for our player
-        self.rect.left = 460
-        self.rect.top = 280
+        self.rect.left = 0
+        self.rect.top = 200
         self.__speed = 4
 
         #Sets angle value aka: where the player is facing
         self.__angle = 0
 
+
     #methods to make player move
     def go_right(self, screen):
         #go right if rect.right < screen width
-        if self.rect.right > screen.get_width():
+        print screen.get_width()
+        allowLimit = int(screen.get_width()+150)
+        print allowLimit
+        if self.rect.right > allowLimit:
             None
         else:
             self.rect.right += self.__speed
@@ -54,7 +57,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.top-=self.__speed
 
     def go_down(self,screen):
-        if self.rect.bottom > screen.get_height():
+
+        allowLimit = screen.get_height()+150
+        if self.rect.bottom > allowLimit:
             None
         else:
             self.rect.bottom+=self.__speed

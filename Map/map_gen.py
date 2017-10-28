@@ -23,19 +23,23 @@ def convert_to_terrain(num, blocks):
 
 
 def wanking_cunt(x_width, y_height, freq, octaves, power, features):
-    total = []
+    array = []
+    if not os.path.exists('map.dat'):
+        f = open('map.dat', 'w')
+    else:
+        f = open('map.dat', 'r+')
+
     for y in range(0,y_height):
+        array.append([])
+        print y
         for x in range(0,x_width):
+            #print x, y
             nx = float(x)/float(x_width) - 0.5
             ny = float(y)/float(y_height) - 0.5
             z = 0
             z = noise(nx, ny, freq, octaves, power)
             terrain =  convert_to_terrain(z, features)
-            total.append([(x, y), terrain])
-#    if not os.path.exists('map.dat'):
-        #f = open('map.dat', 'w')
-        #f.close()
-    #with open('map.dat', "rw") as map_:
-    #    for tile in total:
-    #        map_.write(tile)
-    return total
+            array[y].append(terrain)
+
+    f.close()
+    return array

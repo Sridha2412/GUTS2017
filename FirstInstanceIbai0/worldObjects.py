@@ -130,7 +130,12 @@ class Creepers(pygame.sprite.Sprite):
         self.image = image
         self.image.convert_alpha()
         self.__saved_image = self.image
+        w,h = self.__saved_image.get_size()
+        self.image = pygame.transform.scale(self.__saved_image, (int(w*0.3), int(h*0.3)))
+        self.__saved_image = self.image
+
         self.rect = self.image.get_rect()
+
 
         #Assigning initial zombie spawn point
         self.spawn()
@@ -244,3 +249,58 @@ class Creepers(pygame.sprite.Sprite):
                 self.__speed = self.__default_speed
                 self.__slow_counter = 0
                 self.__slow = False
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, image, angle, player_pos, mouse_pos, speed, damage, double_damage):
+        pygame.sprite.Sprite.__init__(self)
+
+        if double_damage:
+            self.__damage=damage*2
+        else:
+            self.__damage=damage
+        self.__min_damage=damage
+        self.__max_damage=damage*2
+
+        #Assign the player position
+        self.__x=player_pos[0]
+        self.__y=player_pos[1]
+
+        #Assign the mouse target position
+        self.__target_x=mouse_pos[0]
+        self.__target_y=mouse_pos[1]
+
+        if image:
+            self.image=image
+            self.image.convert()
+            self.rect = self.image.get_rect()
+            self.rect.center=(self.__x,self.__y)
+            self.image=pygame.transform.rotate\
+            (self.image, angle)
+            self.rect = self.image.get_rect(center=self.rect.center)
+        else:
+            self.image=pygame.Surface((5,5))
+            self.image.fill((255,0,0))
+            self.image.set_alpha(0)
+            self.rect = self.image.get_rect()
+            self.rect.center=(self.__x,self.__y)
+
+        #resize image
+
+
+        #Calculate distance and step amount
+        self.__distance=math.sqrt\
+            (pow(self.__target_x-self.__x,2)+pow(self.__target_y-self.__y,2))
+        self.__animation_steps=self.__distance/speed
+        self.__dx=(self.__target_x-self.__x)/self.__animation_steps
+        self.__dy=(self.__target_y-self.__y)/self.__animation_steps
+
+    def get_damage(self):
+        '''get damage'''
+        return self.__damage
+
+    def update(self):
+        '''move the rect and if it goes off screen, it is killed'''
+        self.rect.centerx+=self.__dx
+        self.rect.centery+=self.__dy
+        if self.rect.top<0 or self.rect.bottom>620 or self.rect.left<0 or self.rect.right>1280:
+            self.kill()
